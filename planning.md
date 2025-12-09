@@ -13,10 +13,11 @@
 - [x] Refactorización (Refactor).
 
 ## Fase 3: Tests de Backend (Base de Datos)
-- [ ] Definición de casos de prueba (recepción de datos, validación de esquema, inserción en DB simulada/mock).
-- [ ] Implementación en Rojo (Red).
-- [ ] Implementación mínima en Verde (Green).
-- [ ] Refactorización (Refactor).
+- [x] Definición de casos de prueba (recepción de datos, validación de esquema, inserción en DB simulada/mock).
+- [x] Implementación en Rojo (Red).
+- [x] Implementación mínima en Verde (Green).
+- [x] Refactorización (Refactor).
 
 ## Fase 4: Integración y Revisión
-- [ ] Verificación final de ambas suites de tests.
+- [x] Actualización de README.md con información de tests.
+- [x] Verificación final de ambas suites de tests.

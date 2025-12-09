@@ -78,6 +78,54 @@ npm start
 
 The backend server will be running at http://localhost:3010, and the frontend will be available at http://localhost:3000.
 
+## Testing
+
+This project follows **Test-Driven Development (TDD)** methodology with the **Red-Green-Refactor** cycle. Both frontend and backend have independent test suites using Jest.
+
+### Running Tests
+
+#### Frontend Tests
+To run the frontend test suite:
+```sh
+cd frontend
+npm test
+```
+
+The frontend tests cover:
+- Form field rendering (Name, Last Name, Email)
+- Form validation (required fields)
+- Service call simulation with mocks
+
+**Current status**: 6/6 tests passing ✅
+
+#### Backend Tests
+To run the backend test suite:
+```sh
+cd backend
+npm test
+```
+
+The backend tests cover:
+- Data schema validation
+- Database persistence (mocked with Prisma)
+- Complex data handling (education, work experience)
+
+**Current status**: 8/8 tests passing ✅
+
+#### Running All Tests
+To run both test suites sequentially from the root directory:
+```sh
+cd frontend && npm test && cd ../backend && npm test
+```
+
+### Test Architecture
+
+Each subsystem (frontend/backend) maintains its own isolated testing configuration:
+- **Frontend**: `frontend/jest.config.js` (jsdom environment for React components)
+- **Backend**: `backend/jest.config.js` (node environment with ts-jest)
+
+This isolation ensures independence between modules and prevents coupling.
+
 ## Docker y PostgreSQL
 
 This project uses Docker to run a PostgreSQL database. Here’s how to get it up and running:
@@ -230,6 +278,54 @@ npm start
 ```
 
 El servidor backend estará corriendo en http://localhost:3010 y el frontend estará disponible en http://localhost:3000.
+
+## Testing
+
+Este proyecto sigue la metodología de **Desarrollo Guiado por Pruebas (TDD)** con el ciclo **Red-Green-Refactor**. Tanto el frontend como el backend tienen suites de pruebas independientes usando Jest.
+
+### Ejecutar Tests
+
+#### Tests de Frontend
+Para ejecutar la suite de tests del frontend:
+```sh
+cd frontend
+npm test
+```
+
+Los tests de frontend cubren:
+- Renderizado de campos del formulario (Nombre, Apellidos, Email)
+- Validación del formulario (campos requeridos)
+- Simulación de llamadas al servicio con mocks
+
+**Estado actual**: 6/6 tests pasando ✅
+
+#### Tests de Backend
+Para ejecutar la suite de tests del backend:
+```sh
+cd backend
+npm test
+```
+
+Los tests de backend cubren:
+- Validación del esquema de datos
+- Persistencia en base de datos (simulada con Prisma)
+- Manejo de datos complejos (educación, experiencia laboral)
+
+**Estado actual**: 8/8 tests pasando ✅
+
+#### Ejecutar Todos los Tests
+Para ejecutar ambas suites de forma secuencial desde el directorio raíz:
+```sh
+cd frontend && npm test && cd ../backend && npm test
+```
+
+### Arquitectura de Tests
+
+Cada subsistema (frontend/backend) mantiene su propia configuración de testing aislada:
+- **Frontend**: `frontend/jest.config.js` (entorno jsdom para componentes React)
+- **Backend**: `backend/jest.config.js` (entorno node con ts-jest)
+
+Este aislamiento asegura la independencia entre módulos y previene acoplamientos.
 
 ## Docker y PostgreSQL
 

@@ -5,7 +5,8 @@ import FileUploader from './FileUploader';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const AddCandidateForm = () => {
+const AddCandidateForm = () =>
+{
     const initialCandidateState = {
         firstName: '',
         lastName: '',
@@ -21,52 +22,63 @@ const AddCandidateForm = () => {
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
-    const validateRequiredFields = () => {
+    const validateRequiredFields = () =>
+    {
         return candidate.firstName && candidate.lastName && candidate.email;
     };
 
-    const handleInputChange = (e, index, section) => {
+    const handleInputChange = (e, index, section) =>
+    {
         const updatedSection = [...candidate[section]];
-        if (updatedSection[index]) {
+        if (updatedSection[index])
+        {
             updatedSection[index][e.target.name] = e.target.value;
             setCandidate({ ...candidate, [section]: updatedSection });
         }
     };
 
-    const handleDateChange = (date, index, section, field) => {
+    const handleDateChange = (date, index, section, field) =>
+    {
         const updatedSection = [...candidate[section]];
-        if (updatedSection[index]) {
+        if (updatedSection[index])
+        {
             updatedSection[index][field] = date;
             setCandidate({ ...candidate, [section]: updatedSection });
         }
     };
 
-    const handleAddSection = (section) => {
+    const handleAddSection = (section) =>
+    {
         const newSection = section === 'educations' ? { institution: '', title: '', startDate: '', endDate: '' } : { company: '', position: '', description: '', startDate: '', endDate: '' };
         setCandidate({ ...candidate, [section]: [...candidate[section], newSection] });
     };
 
-    const handleRemoveSection = (index, section) => {
+    const handleRemoveSection = (index, section) =>
+    {
         const updatedSection = [...candidate[section]];
         updatedSection.splice(index, 1);
         setCandidate({ ...candidate, [section]: updatedSection });
     };
 
-    const handleCVUpload = (fileData) => {
+    const handleCVUpload = (fileData) =>
+    {
         setCandidate({ ...candidate, cv: fileData });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) =>
+    {
         e.preventDefault();
-        
+
         // Validación básica
-        if (!validateRequiredFields()) {
+        if (!validateRequiredFields())
+        {
             setError('Error: Por favor complete los campos obligatorios');
             setSuccessMessage('');
             return;
         }
-        
-        try {
+
+        try
+        {
             const candidateData = {
                 ...candidate,
                 cv: candidate.cv ? {
@@ -77,7 +89,7 @@ const AddCandidateForm = () => {
 
             // Format date fields to YYYY-MM-DD before sending to the endpoint
             const formatDateToString = (date) => date ? date.toISOString().slice(0, 10) : '';
-            
+
             candidateData.educations = candidateData.educations.map(education => ({
                 ...education,
                 startDate: formatDateToString(education.startDate),
@@ -97,22 +109,28 @@ const AddCandidateForm = () => {
                 body: JSON.stringify(candidateData)
             });
 
-            const handleResponse = async (response) => {
-                if (response.status === 201) {
+            const handleResponse = async (response) =>
+            {
+                if (response.status === 201)
+                {
                     setSuccessMessage('Candidato añadido con éxito');
                     setError('');
-                } else if (response.status === 400) {
+                } else if (response.status === 400)
+                {
                     const errorData = await response.json();
                     throw new Error('Datos inválidos: ' + errorData.message);
-                } else if (response.status === 500) {
+                } else if (response.status === 500)
+                {
                     throw new Error('Error interno del servidor');
-                } else {
+                } else
+                {
                     throw new Error('Error al enviar datos del candidato');
                 }
             };
 
             await handleResponse(res);
-        } catch (error) {
+        } catch (error)
+        {
             setError('Error al añadir candidato: ' + error.message);
             setSuccessMessage('');
         }

@@ -185,3 +185,21 @@ Configuración de arquitectura aislada, creación de tests RED para AddCandidate
 **Resumen de la Respuesta/Acción:**
 Implementación GREEN (labels, validación) y REFACTOR (funciones extraídas). Tests: 6/6 pasando.
 ---
+
+## 007 - Fase 3: Tests de Backend (RED-GREEN-REFACTOR)
+**Fecha:** 2025-12-09 11:00
+**Prompt Original:**
+> Ejecuta ahora la fase 3, la suite de tests para el backend
+
+**Resumen de la Respuesta/Acción:**
+Suite completa backend: 8 tests (validación, persistencia mock, datos complejos). Arquitectura refactorizada con servicio directo Prisma y helpers de mapeo.
+---
+
+## 008 - Fase 4: Integración y Revisión Final
+**Fecha:** 2025-12-09 11:30
+**Prompt Original:**
+> Vamos con la fase 4 para terminar este proyecto. Añade la informacion relativa a l aejecucion de tests en el archivo README.md
+
+**Resumen de la Respuesta/Acción:**
+README.md actualizado con secciones de testing (EN/ES). Verificación final: Frontend 6/6 ✅, Backend 8/8 ✅. Proyecto completado.
+---
