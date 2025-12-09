@@ -52,7 +52,7 @@ describe('createCandidate Service - TDD Backend Phase', () =>
                 email: 'juan.perez@example.com'
             };
 
-            await expect(createCandidate(invalidCandidate)).rejects.toThrow();
+            await expect(createCandidate(invalidCandidate as any)).rejects.toThrow();
         });
 
         test('debe rechazar un candidato sin email', async () =>
@@ -62,7 +62,7 @@ describe('createCandidate Service - TDD Backend Phase', () =>
                 lastName: 'Pérez'
             };
 
-            await expect(createCandidate(invalidCandidate)).rejects.toThrow();
+            await expect(createCandidate(invalidCandidate as any)).rejects.toThrow();
         });
     });
 
@@ -97,7 +97,7 @@ describe('createCandidate Service - TDD Backend Phase', () =>
                 // Falta email y lastName
             };
 
-            await expect(createCandidate(invalidCandidate)).rejects.toThrow();
+            await expect(createCandidate(invalidCandidate as any)).rejects.toThrow();
             expect(mockCreate).not.toHaveBeenCalled();
         });
 

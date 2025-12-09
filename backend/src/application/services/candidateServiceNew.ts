@@ -2,8 +2,44 @@ import prisma from '../../prisma/client';
 import { validateCandidateData } from '../validator';
 import { Prisma } from '@prisma/client';
 
+// Tipos de entrada
+interface EducationInput
+{
+    institution: string;
+    title: string;
+    startDate: string;
+    endDate?: string;
+}
+
+interface WorkExperienceInput
+{
+    company: string;
+    position: string;
+    description?: string;
+    startDate: string;
+    endDate?: string;
+}
+
+interface ResumeInput
+{
+    filePath: string;
+    fileType: string;
+}
+
+export interface CandidateInput
+{
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone?: string;
+    address?: string;
+    educations?: EducationInput[];
+    workExperiences?: WorkExperienceInput[];
+    cv?: ResumeInput;
+}
+
 // Helpers para mapear datos relacionados
-const mapEducations = (educations: any[]) => ({
+const mapEducations = (educations: EducationInput[]) => ({
     create: educations.map((edu) => ({
         institution: edu.institution,
         title: edu.title,
@@ -12,7 +48,7 @@ const mapEducations = (educations: any[]) => ({
     }))
 });
 
-const mapWorkExperiences = (experiences: any[]) => ({
+const mapWorkExperiences = (experiences: WorkExperienceInput[]) => ({
     create: experiences.map((exp) => ({
         company: exp.company,
         position: exp.position,
@@ -22,7 +58,7 @@ const mapWorkExperiences = (experiences: any[]) => ({
     }))
 });
 
-const mapResumes = (cv: any) => ({
+const mapResumes = (cv: ResumeInput) => ({
     create: [{
         filePath: cv.filePath,
         fileType: cv.fileType,
@@ -31,7 +67,7 @@ const mapResumes = (cv: any) => ({
 });
 
 // Función principal
-export const createCandidate = async (candidateData: any) =>
+export const createCandidate = async (candidateData: CandidateInput) =>
 {
     // Validar datos
     validateCandidateData(candidateData);
