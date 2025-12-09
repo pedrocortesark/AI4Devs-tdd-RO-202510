@@ -6,7 +6,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const AddCandidateForm = () => {
-    const [candidate, setCandidate] = useState({
+    const initialCandidateState = {
         firstName: '',
         lastName: '',
         email: '',
@@ -15,9 +15,15 @@ const AddCandidateForm = () => {
         educations: [],
         workExperiences: [],
         cv: null
-    });
+    };
+
+    const [candidate, setCandidate] = useState(initialCandidateState);
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+
+    const validateRequiredFields = () => {
+        return candidate.firstName && candidate.lastName && candidate.email;
+    };
 
     const handleInputChange = (e, index, section) => {
         const updatedSection = [...candidate[section]];
@@ -52,6 +58,14 @@ const AddCandidateForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        
+        // Validación básica
+        if (!validateRequiredFields()) {
+            setError('Error: Por favor complete los campos obligatorios');
+            setSuccessMessage('');
+            return;
+        }
+        
         try {
             const candidateData = {
                 ...candidate,
@@ -62,15 +76,17 @@ const AddCandidateForm = () => {
             };
 
             // Format date fields to YYYY-MM-DD before sending to the endpoint
+            const formatDateToString = (date) => date ? date.toISOString().slice(0, 10) : '';
+            
             candidateData.educations = candidateData.educations.map(education => ({
                 ...education,
-                startDate: education.startDate ? education.startDate.toISOString().slice(0, 10) : '',
-                endDate: education.endDate ? education.endDate.toISOString().slice(0, 10) : ''
+                startDate: formatDateToString(education.startDate),
+                endDate: formatDateToString(education.endDate)
             }));
             candidateData.workExperiences = candidateData.workExperiences.map(experience => ({
                 ...experience,
-                startDate: experience.startDate ? experience.startDate.toISOString().slice(0, 10) : '',
-                endDate: experience.endDate ? experience.endDate.toISOString().slice(0, 10) : ''
+                startDate: formatDateToString(experience.startDate),
+                endDate: formatDateToString(experience.endDate)
             }));
 
             const res = await fetch('http://localhost:3010/candidates', {
@@ -81,17 +97,21 @@ const AddCandidateForm = () => {
                 body: JSON.stringify(candidateData)
             });
 
-            if (res.status === 201) {
-                setSuccessMessage('Candidato añadido con éxito');
-                setError('');
-            } else if (res.status === 400) {
-                const errorData = await res.json();
-                throw new Error('Datos inválidos: ' + errorData.message);
-            } else if (res.status === 500) {
-                throw new Error('Error interno del servidor');
-            } else {
-                throw new Error('Error al enviar datos del candidato');
-            }
+            const handleResponse = async (response) => {
+                if (response.status === 201) {
+                    setSuccessMessage('Candidato añadido con éxito');
+                    setError('');
+                } else if (response.status === 400) {
+                    const errorData = await response.json();
+                    throw new Error('Datos inválidos: ' + errorData.message);
+                } else if (response.status === 500) {
+                    throw new Error('Error interno del servidor');
+                } else {
+                    throw new Error('Error al enviar datos del candidato');
+                }
+            };
+
+            await handleResponse(res);
         } catch (error) {
             setError('Error al añadir candidato: ' + error.message);
             setSuccessMessage('');
@@ -116,7 +136,7 @@ const AddCandidateForm = () => {
                                 />
                             </Form.Group>
                             <Form.Group controlId="lastName">
-                                <Form.Label>Apellido</Form.Label>
+                                <Form.Label>Apellidos</Form.Label>
                                 <Form.Control
                                     type="text"
                                     name="lastName"
@@ -126,7 +146,7 @@ const AddCandidateForm = () => {
                                 />
                             </Form.Group>
                             <Form.Group controlId="email">
-                                <Form.Label>Correo Electrónico</Form.Label>
+                                <Form.Label>Email</Form.Label>
                                 <Form.Control
                                     type="email"
                                     name="email"
@@ -269,7 +289,7 @@ const AddCandidateForm = () => {
                             ))}
                         </Col>
                     </Row>
-                    <Button type="submit" className="btn btn-primary btn-block shadow-sm mt-5">Enviar</Button>
+                    <Button type="submit" className="btn btn-primary btn-block shadow-sm mt-5">Añadir Candidato</Button>
                     {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
                     {successMessage && <Alert variant="success" className="mt-3">{successMessage}</Alert>}
                 </Form>

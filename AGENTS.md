@@ -19,3 +19,6 @@
 
 ## Documentación
 - Actualizar constantemente el archivo `planning.md` con el progreso de las tareas.
+
+## Decisiones de Arquitectura
+- **Aislamiento de Configuraciones de Testing**: Cada subsistema (frontend/backend) mantendrá su propia configuración de testing aislada para evitar acoplamientos y garantizar la independencia de módulos.

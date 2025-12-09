@@ -4,13 +4,13 @@
 - [x] Creación de archivo `AGENTS.md` con reglas del agente.
 - [x] Creación de archivo `prompts.md` para registro de prompts.
 - [x] Creación de archivo `planning.md` (este archivo).
-- [ ] Análisis de la estructura actual del proyecto.
+- [x] Análisis de la estructura actual del proyecto.
 
 ## Fase 2: Tests de Frontend (Formulario)
-- [ ] Definición de casos de prueba (validación de campos, llamada al servicio).
-- [ ] Implementación en Rojo (Red).
-- [ ] Implementación mínima en Verde (Green).
-- [ ] Refactorización (Refactor).
+- [x] Definición de casos de prueba (validación de campos, llamada al servicio).
+- [x] Implementación en Rojo (Red).
+- [x] Implementación mínima en Verde (Green).
+- [x] Refactorización (Refactor).
 
 ## Fase 3: Tests de Backend (Base de Datos)
 - [ ] Definición de casos de prueba (recepción de datos, validación de esquema, inserción en DB simulada/mock).

@@ -126,3 +126,62 @@ Optención de prompt para proporcionar a Github Copilot
 **Resumen de la Respuesta/Acción:**
 Creación de archivos AGENTS.md, planning.md y prompts.md con la configuración inicial solicitada.
 ---
+
+## 003 - Análisis de Estructura y Fin de Fase 1
+**Fecha:** 2025-12-09 10:05
+**Prompt Original:**
+> Ahora quiero que realices el análisis que remata la fase 1. Recuerda que vamos a hacer dos suite de tests, y pregunta si tienes alguna duda
+
+**Resumen de la Respuesta/Acción:**
+Análisis de estructura backend/frontend realizado. Actualización de planning.md.
+---
+
+## 004 - Solicitud de prompt
+**Fecha:** 2025-12-09 10:07
+**Prompt Original:**
+> Me gustaría que me indicaras un prompt en formato markdown (cuidado con los markdown anidados) para solicitarte que inicies la fase 2: tests de frontend.
+
+De cara a tomar decisiones relativas a los archivos específicos de configuracion de jest, quiero que sigas las buenas prácticas para TDD. Cualquier decision que tomes repsecto a la arquitectura o al entorno, incluyela en el archivo AGENTS.md
+
+Recuerda, no quiero que moficiques nada, solo dame el prompt
+
+**Resumen de la Respuesta/Acción:**
+Prompt obtenido
+---
+
+## 005 - Inicio Fase 2: Tests de Frontend (RED)
+**Fecha:** 2025-12-09 10:10
+**Prompt Original:**
+> Actúa como experto en TDD y desarrollo Frontend con React. Iniciamos la **Fase 2: Tests de Frontend**.
+>
+> ### 1. Arquitectura y Configuración
+> Para asegurar la independencia y escalabilidad del proyecto, tomaremos la decisión de **aislar la configuración de pruebas**.
+> - Crea un archivo `jest.config.js` específico dentro del directorio `frontend/`.
+> - **AGENTS.md**: Añade una nueva sección "Decisiones de Arquitectura" y registra esta regla: *"Cada subsistema (frontend/backend) mantendrá su propia configuración de testing aislada para evitar acoplamientos."*
+>
+> ### 2. Ciclo TDD: Estado RED
+> El objetivo es validar el componente `AddCandidateForm`.
+> 1.  **Configuración**: Asegura que el entorno de test en `frontend/` funciona correctamente.
+> 2.  **Test Suite**: Crea el archivo `frontend/src/components/__tests__/AddCandidateForm.test.js`.
+> 3.  **Casos de Prueba (RED)**: Implementa los tests iniciales que deben fallar.
+>     - Verificar que el formulario renderiza los campos básicos (Nombre, Apellidos, Email).
+>     - Verificar que se muestra un error de validación si se intenta enviar el formulario vacío.
+>     - Simular la llamada al servicio de creación (mock) y verificar que NO se llama si hay errores de validación.
+>
+> ### 3. Documentación
+> - Registra este prompt en `prompts.md` con el siguiente ID incremental.
+> - Actualiza `planning.md` indicando que estamos trabajando en la definición e implementación en Rojo de la Fase 2.
+>
+> Ejecuta los tests y muéstrame la salida de error para confirmar el estado **RED**.
+
+**Resumen de la Respuesta/Acción:**
+Configuración de arquitectura aislada, creación de tests RED para AddCandidateForm.
+---
+## 006 - Completar Fase 2: GREEN y REFACTOR
+**Fecha:** 2025-12-09 10:30
+**Prompt Original:**
+> Procede a completar la fase GREEN y el refactor para finalizar la fase 2
+
+**Resumen de la Respuesta/Acción:**
+Implementación GREEN (labels, validación) y REFACTOR (funciones extraídas). Tests: 6/6 pasando.
+---
